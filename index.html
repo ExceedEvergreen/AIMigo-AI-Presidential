@@ -80,6 +80,23 @@
       display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;
     }
     @media (max-width: 700px){ .kpi{ grid-template-columns:1fr; } }
+    /* Logo */
+    .brandRow{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo{
+      height: 46px;   /* adjust size */
+      width: auto;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 520px){
+      .logo{ height: 40px; }
+    }
+
     .kpi .box{
       border-radius: 16px; padding: 12px; background: rgba(255,255,255,0.04);
       border:1px solid rgba(255,255,255,0.10);
@@ -132,7 +149,11 @@
 
     <header>
       <div class="brand">
-        <h1>AIMigo</h1>
+        <div class="brandRow">
+          <img src="logo.png" alt="AIMigo logo" class="logo">
+          <h1>AIMigo</h1>
+        </div>
+
         <p>
           A privacy-first voice journal demo: <b>Whisper</b> transcribes speech locally, then a <b>Hugging Face</b> model estimates emotion.
           The app visualizes <b>emotion trends</b> and a simple <b>feeling score</b> over time.
