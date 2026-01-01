@@ -7,140 +7,166 @@
   <meta name="description" content="AIMigo: Whisper transcription + Hugging Face emotion scoring + trend visualizations, with privacy-first storage and safety triggers." />
 
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,750&family=Inter:wght@400;600;750&display=swap");
+
     :root{
       --bg: #0b1220;
       --card: rgba(255,255,255,0.06);
       --card2: rgba(255,255,255,0.04);
       --text: #e7edf6;
-      --muted: rgba(231,237,246,0.75);
+      --muted: rgba(231,237,246,0.78);
       --line: rgba(231,237,246,0.14);
       --shadow: 0 18px 55px rgba(0,0,0,0.55);
       --accent: #4f46e5;
       --accent2:#2563eb;
-      --good:#22c55e;
-      --warn:#eab308;
-      --bad:#ef4444;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      --sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+      --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+      --title: "Fraunces", ui-serif, Georgia, serif;
     }
+
     *{ box-sizing:border-box; }
+
     body{
-      margin:0; background: radial-gradient(1200px 800px at 10% 10%, rgba(79,70,229,0.18), transparent 60%),
-                          radial-gradient(1200px 900px at 90% 0%, rgba(37,99,235,0.15), transparent 55%),
-                          var(--bg);
-      color:var(--text); font-family: var(--sans);
+      margin:0;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(79,70,229,0.18), transparent 60%),
+        radial-gradient(1200px 900px at 90% 0%, rgba(37,99,235,0.15), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      font-family: var(--sans);
+      font-size: 18px;              /* Bigger base text */
+      line-height: 1.6;
     }
+
     a{ color:#9cc1ff; text-decoration:none; }
     a:hover{ text-decoration:underline; }
-    .wrap{ max-width: 1080px; margin: 0 auto; padding: 28px 16px 56px; }
+
+    .wrap{ max-width: 1080px; margin: 0 auto; padding: 34px 16px 70px; }
+
     header{
-      display:flex; justify-content:space-between; gap:16px; align-items:flex-start; flex-wrap:wrap;
-      padding: 18px 18px 8px; border:1px solid var(--line); border-radius:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      padding: 22px 22px 18px;
+      border:1px solid var(--line);
+      border-radius:20px;
       background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
       box-shadow: var(--shadow);
     }
-    .brand h1{ margin:0; font-size: 2.3rem; letter-spacing:-0.02em; }
-    .brand p{ margin: 8px 0 0; color: var(--muted); line-height:1.45; max-width: 66ch; }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px; padding: 8px 12px; border-radius:999px;
-      border:1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--muted);
-      font-size: 0.95rem;
+
+    .brand{ flex: 1 1 520px; }
+
+    .brandRow{
+      display:flex;
+      align-items:center;
+      gap:16px;
     }
+
+/* Bigger, nicer logo */
+    .logo{
+      height: 74px;
+      width: auto;
+      border-radius: 16px;
+      padding: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(231,237,246,0.18);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+    }
+
+    @media (max-width: 520px){
+      body{ font-size: 17px; }
+      .logo{ height: 62px; }
+    }
+
+/* Fancier heading */
+    .brand h1{
+      margin:0;
+      font-family: var(--title);
+      font-size: 3rem;
+      letter-spacing: 0.01em;
+    }
+
+    .brand p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 70ch;
+      font-size: 1.1rem;            /* Bigger paragraph text */
+    }
+
     .ctaRow{
-      display:flex; flex-wrap:wrap; gap:10px; margin-top: 14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top: 16px;
     }
+
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding: 12px 14px; border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 14px 16px;
+      border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.16);
       background: linear-gradient(135deg, var(--accent2), var(--accent));
-      color: white; font-weight: 750; letter-spacing: 0.01em;
+      color: white;
+      font-weight: 750;
+      font-size: 1.05rem;          /* Bigger buttons */
       box-shadow: 0 12px 30px rgba(37,99,235,0.35);
-      min-width: 180px;
+      min-width: 210px;
+      transition: transform 0.15s ease;
     }
     .btn:hover{ transform: translateY(-1px); }
+    
     .btn.secondary{
       background: rgba(255,255,255,0.06);
       color: var(--text);
       box-shadow:none;
     }
-    .grid{
-      margin-top: 18px;
-      display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 14px;
+    
+    /* Scroll section for photos and project writeup */
+    .sectionTitle{
+      margin: 28px 0 10px;
+      font-family: var(--title);
+      font-size: 1.8rem;
     }
-    @media (max-width: 900px){ .grid{ grid-template-columns:1fr; } }
-    .card{
-      border:1px solid var(--line); border-radius:18px; padding: 16px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+    
+    .sectionCard{
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding: 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
       box-shadow: var(--shadow);
     }
-    .card h2{ margin: 2px 0 10px; font-size: 1.2rem; }
-    .muted{ color: var(--muted); }
-    .kpi{
-      display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;
-    }
-    @media (max-width: 700px){ .kpi{ grid-template-columns:1fr; } }
-    /* Logo */
-    .brandRow{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-
-    .logo{
-      height: 46px;   /* adjust size */
-      width: auto;
-      border-radius: 10px;
-    }
-
-    @media (max-width: 520px){
-      .logo{ height: 40px; }
-    }
-
-    .kpi .box{
-      border-radius: 16px; padding: 12px; background: rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.10);
-    }
-    .box b{ display:block; margin-bottom:4px; }
-    .badgeRow{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px; }
-    .badge{
-      font-size: 0.9rem; padding: 7px 10px; border-radius:999px; border:1px solid var(--line);
-      background: rgba(255,255,255,0.04); color: var(--muted);
-    }
-    .neonNotice{
+    
+    .photoGrid{
       margin-top: 14px;
-      border-radius: 16px;
-      padding: 12px 14px;
-      border: 1px solid rgba(34,197,94,0.55);
-      background: linear-gradient(135deg, rgba(34,197,94,0.10), rgba(59,130,246,0.08));
-      box-shadow:
-        0 0 0 1px rgba(34,197,94,0.15),
-        0 0 22px rgba(34,197,94,0.18),
-        0 0 34px rgba(59,130,246,0.12);
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
     }
-    .neonNotice b{ font-weight: 850; }
-    .section{ margin-top: 14px; }
-    details{
-      border:1px solid var(--line); border-radius:16px; padding: 12px 12px;
-      background: rgba(255,255,255,0.03);
+    
+    @media (max-width: 900px){
+      .photoGrid{ grid-template-columns: 1fr; }
     }
-    details + details{ margin-top:10px; }
-    summary{ cursor:pointer; font-weight: 800; }
-    .mono{
-      font-family: var(--mono); font-size: 0.95rem;
-      background: rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.12);
-      border-radius: 14px; padding: 12px; overflow:auto;
-      margin-top: 10px;
+    
+    .photo{
+      width:100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid rgba(231,237,246,0.16);
+      background: rgba(255,255,255,0.04);
     }
-    .callout{
-      border-radius: 16px; padding: 12px 14px; border:1px solid rgba(234,179,8,0.45);
-      background: rgba(234,179,8,0.10);
+    
+    .caption{
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 1rem;
     }
-    footer{
-      margin-top: 18px; color: var(--muted); font-size: 0.95rem;
-      display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
-    }
-    .small{ font-size: 0.95rem; line-height:1.45; }
+
   </style>
 </head>
 
@@ -153,18 +179,47 @@
           <img src="logo.png" alt="AIMigo logo" class="logo">
           <h1>AIMigo</h1>
         </div>
-
+    
         <p>
-          A privacy-first voice journal demo: <b>Whisper</b> transcribes speech locally, then a <b>Hugging Face</b> model estimates emotion.
+          A privacy-first voice journal demo. <b>Whisper</b> transcribes speech locally, then a <b>Hugging Face</b> model estimates emotion.
           The app visualizes <b>emotion trends</b> and a simple <b>feeling score</b> over time.
         </p>
-
+    
         <div class="ctaRow">
           <a class="btn" href="https://huggingface.co/spaces/NitemarePelican/AIPresidential-AIMigo" target="_blank" rel="noopener">
             🚀 Launch AIMigo Demo
           </a>
-
-          <a class="btn secondary" href="TODO_VIDEO_URL" target="_blank" rel="noopener">🎥 4-min Video</a>
-        
-    <img src="raspberry.jpeg" alt="raspberry" class="logo">
-
+    
+          <a class="btn secondary" href="TODO_VIDEO_URL" target="_blank" rel="noopener">
+            🎥 4 min Video
+          </a>
+        </div>
+      </div>
+    </header>
+    <h2 class="sectionTitle">Project photos</h2>
+    <div class="sectionCard">
+      <div class="photoGrid">
+        <div>
+          <img src="raspberry.jpeg" alt="Hardware prototype" class="photo">
+          <div class="caption">Version 2: Raspberry Pi 4</div>
+        </div>
+    
+        <div>
+          <img src="photo2.jpeg" alt="Demo interface" class="photo">
+          <div class="caption">AIMigo interface and trend view.</div>
+        </div>
+    
+        <div>
+          <img src="photo3.jpeg" alt="Stuffed animal build" class="photo">
+          <div class="caption">Stuffed animal enclosure and microphone placement.</div>
+        </div>
+      </div>
+    </div>
+    
+    <h2 class="sectionTitle">Project description</h2>
+    <div class="sectionCard">
+      <p>
+        Paste your longer description here. Users can scroll and read everything below the header.
+      </p>
+    </div>
+    
