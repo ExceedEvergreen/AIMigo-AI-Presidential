@@ -34,7 +34,7 @@
         var(--bg);
       color:var(--text);
       font-family: var(--sans);
-      font-size: 18px;              /* Bigger base text */
+      font-size: 18px;
       line-height: 1.6;
     }
 
@@ -64,7 +64,6 @@
       gap:16px;
     }
 
-/* Bigger, nicer logo */
     .logo{
       height: 74px;
       width: auto;
@@ -80,7 +79,6 @@
       .logo{ height: 62px; }
     }
 
-/* Fancier heading */
     .brand h1{
       margin:0;
       font-family: var(--title);
@@ -92,7 +90,7 @@
       margin: 10px 0 0;
       color: var(--muted);
       max-width: 70ch;
-      font-size: 1.1rem;            /* Bigger paragraph text */
+      font-size: 1.1rem;
     }
 
     .ctaRow{
@@ -113,26 +111,25 @@
       background: linear-gradient(135deg, var(--accent2), var(--accent));
       color: white;
       font-weight: 750;
-      font-size: 1.05rem;          /* Bigger buttons */
+      font-size: 1.05rem;
       box-shadow: 0 12px 30px rgba(37,99,235,0.35);
       min-width: 210px;
       transition: transform 0.15s ease;
     }
     .btn:hover{ transform: translateY(-1px); }
-    
+
     .btn.secondary{
       background: rgba(255,255,255,0.06);
       color: var(--text);
       box-shadow:none;
     }
-    
-    /* Scroll section for photos and project writeup */
+
     .sectionTitle{
       margin: 28px 0 10px;
       font-family: var(--title);
       font-size: 1.8rem;
     }
-    
+
     .sectionCard{
       border:1px solid var(--line);
       border-radius:20px;
@@ -140,18 +137,18 @@
       background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
       box-shadow: var(--shadow);
     }
-    
+
     .photoGrid{
       margin-top: 14px;
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
     }
-    
+
     @media (max-width: 900px){
       .photoGrid{ grid-template-columns: 1fr; }
     }
-    
+
     .photo{
       width:100%;
       height: 220px;
@@ -160,11 +157,127 @@
       border: 1px solid rgba(231,237,246,0.16);
       background: rgba(255,255,255,0.04);
     }
-    
+
     .caption{
       margin-top: 8px;
       color: var(--muted);
       font-size: 1rem;
+    }
+
+    /* Models section (big and eye catching) */
+    .modelsGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 980px){
+      .modelsGrid{ grid-template-columns: 1fr; }
+    }
+
+    .modelCard{
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      min-height: 260px;
+    }
+
+    .modelCard::before{
+      content:"";
+      position:absolute;
+      inset: -60px -60px auto auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      filter: blur(12px);
+      opacity: 0.55;
+      background: radial-gradient(circle at 30% 30%, rgba(79,70,229,0.65), transparent 70%);
+      pointer-events:none;
+    }
+
+    .modelCard.green::before{
+      background: radial-gradient(circle at 30% 30%, rgba(34,197,94,0.65), transparent 70%);
+    }
+    .modelCard.yellow::before{
+      background: radial-gradient(circle at 30% 30%, rgba(234,179,8,0.65), transparent 70%);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(231,237,246,0.18);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 650;
+    }
+
+    .badgeDot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(79,70,229,0.95);
+      box-shadow: 0 0 22px rgba(79,70,229,0.55);
+      flex: 0 0 auto;
+    }
+    .green .badgeDot{
+      background: rgba(34,197,94,0.95);
+      box-shadow: 0 0 22px rgba(34,197,94,0.55);
+    }
+    .yellow .badgeDot{
+      background: rgba(234,179,8,0.95);
+      box-shadow: 0 0 22px rgba(234,179,8,0.55);
+    }
+
+    .modelName{
+      margin: 14px 0 8px;
+      font-family: var(--title);
+      font-size: 2.05rem;
+      line-height: 1.15;
+      letter-spacing: 0.01em;
+    }
+
+    .modelSubtitle{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .bigLine{
+      font-size: 1.15rem;
+      font-weight: 750;
+      margin: 10px 0 10px;
+    }
+
+    .details{
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .metaRow{
+      margin-top: 14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .chip{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(231,237,246,0.16);
+      background: rgba(0,0,0,0.18);
+      color: rgba(231,237,246,0.86);
+      font-size: 0.98rem;
+      font-weight: 650;
     }
 
   </style>
@@ -173,48 +286,86 @@
 <body>
   <div class="wrap">
 
+    <!-- Title + subtitle (and your buttons, unchanged) -->
     <header>
       <div class="brand">
         <div class="brandRow">
           <img src="logo.png" alt="AIMigo logo" class="logo">
           <h1>AIMigo</h1>
         </div>
-    
+
         <p>
           A voice first journal for reflection! AIMigo transcribes speech, supports multiple languages, and turns moments into emotion trends you can understand!
         </p>
-    
+
         <div class="ctaRow">
           <a class="btn" href="https://huggingface.co/spaces/NitemarePelican/AIPresidential-AIMigo" target="_blank" rel="noopener">
             🚀 Launch AIMigo Demo
           </a>
-    
+
           <a class="btn secondary" href="TODO_VIDEO_URL" target="_blank" rel="noopener">
             🎥 4 min Video
           </a>
         </div>
       </div>
     </header>
-    <h2 class="sectionTitle">Physical companion photos</h2>
+
+    <!-- Project description -->
+    <h2 class="sectionTitle">Project description</h2>
     <div class="sectionCard">
-      <div class="photoGrid">
-        <div>
-          <img src="real_stuffed_animal.png" alt="Stuffed animal build" class="photo">
-          <div class="caption">Stuffed Animal Holding Speaker connected to Raspberry Pi</div>
-        </div>
-    
-        <div>
-          <img src="real_tray.png" alt="Hardware tray" class="photo">
-          <div class="caption">Microphone, Speaker, Raspberry Pi Zero, and Raspberry Pi 4</div>
-        </div>
-    
-        <div>
-          <img src="raspberry.jpeg" alt="Raspberry Pi 4 build" class="photo">
-          <div class="caption">Version 2: Raspberry Pi 4</div>
-        </div>
+      <p>
+        AIMigo helps teens reflect on their mood in under 60 seconds using voice, while minimizing what gets stored. It turns a short voice journal into an interpretable emotional summary and trend charts over time, emphasizing patterns rather than one off judgments. AIMigo is explicitly non clinical: it does not diagnose, treat, or replace professional mental health care, and it is designed to support reflection with privacy first defaults and safety guardrails.
+      </p>
+    </div>
+
+    <!-- AI models used (big and eye catching) -->
+    <h2 class="sectionTitle">AI models used</h2>
+    <div class="sectionCard">
+      <div class="modelsGrid">
+
+        <section class="modelCard">
+          <div class="pill"><span class="badgeDot"></span>Emotion classification</div>
+          <h3 class="modelName">JHartmann Emotion Model</h3>
+          <p class="modelSubtitle">DistilRoBERTa, implemented as a Hugging Face Transformer classifier.</p>
+          <p class="bigLine">What it does</p>
+          <p class="details">Estimates emotional tone from the journal transcript and produces scores that can be plotted into trends over time.</p>
+          <div class="metaRow">
+            <span class="chip">Transformers classifier</span>
+            <span class="chip">DistilRoBERTa</span>
+            <span class="chip">Emotion labels</span>
+          </div>
+        </section>
+
+        <section class="modelCard yellow">
+          <div class="pill"><span class="badgeDot"></span>Multilingual translation</div>
+          <h3 class="modelName">Meta M2M100</h3>
+          <p class="modelSubtitle">A Hugging Face Transformer sequence to sequence model.</p>
+          <p class="bigLine">What it does</p>
+          <p class="details">Translates multilingual input into English to improve consistency when emotion models perform best in English.</p>
+          <div class="metaRow">
+            <span class="chip">Seq to seq</span>
+            <span class="chip">Multilingual</span>
+            <span class="chip">Meaning preservation</span>
+          </div>
+        </section>
+
+        <section class="modelCard green">
+          <div class="pill"><span class="badgeDot"></span>Speech recognition</div>
+          <h3 class="modelName">OpenAI Whisper</h3>
+          <p class="modelSubtitle">Base size speech recognition model.</p>
+          <p class="bigLine">What it does</p>
+          <p class="details">Transcribes the user voice into text so the rest of the pipeline can run. In AIMigo, transcription is designed to happen locally.</p>
+          <div class="metaRow">
+            <span class="chip">ASR</span>
+            <span class="chip">Whisper base</span>
+            <span class="chip">Voice input</span>
+          </div>
+        </section>
+
       </div>
     </div>
-    
+
+    <!-- Website photos -->
     <h2 class="sectionTitle">Website photos</h2>
     <div class="sectionCard">
       <div class="photoGrid">
@@ -222,12 +373,12 @@
           <img src="real_emotion.png" alt="AIMigo website homepage" class="photo">
           <div class="caption">Emotional Analysis</div>
         </div>
-    
+
         <div>
           <img src="real_timeline.png" alt="AIMigo demo interface" class="photo">
           <div class="caption">Timeline Plot</div>
         </div>
-    
+
         <div>
           <img src="real_plot.png" alt="AIMigo trends view" class="photo">
           <div class="caption">Bar Graph</div>
@@ -235,11 +386,27 @@
       </div>
     </div>
 
-    <h2 class="sectionTitle">Project description</h2>
+    <!-- Physical companion photos -->
+    <h2 class="sectionTitle">Physical companion photos</h2>
     <div class="sectionCard">
-      <p>
-        AIMigo helps teens reflect on their mood in under 60 seconds using voice, while minimizing what gets stored. It turns a short voice journal into an interpretable emotional summary and trend charts over time, emphasizing patterns rather than one-off judgments. AIMigo is explicitly non-clinical: it does not diagnose, treat, or replace professional mental health care, and it is designed to support reflection with privacy-first defaults and safety guardrails.
+      <div class="photoGrid">
+        <div>
+          <img src="real_stuffed_animal.png" alt="Stuffed animal build" class="photo">
+          <div class="caption">Stuffed Animal Holding Speaker connected to Raspberry Pi</div>
+        </div>
 
-      </p>
+        <div>
+          <img src="real_tray.png" alt="Hardware tray" class="photo">
+          <div class="caption">Microphone, Speaker, Raspberry Pi Zero, and Raspberry Pi 4</div>
+        </div>
+
+        <div>
+          <img src="raspberry.jpeg" alt="Raspberry Pi 4 build" class="photo">
+          <div class="caption">Version 2: Raspberry Pi 4</div>
+        </div>
+      </div>
     </div>
-    
+
+  </div>
+</body>
+</html>
